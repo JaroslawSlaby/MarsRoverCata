@@ -20,6 +20,5 @@ public class MarsRover {
     }
 
     return rover.x + " " + rover.y + " " + rover.direction.toString();
-
   }
 }

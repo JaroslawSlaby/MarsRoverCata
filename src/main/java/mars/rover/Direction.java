@@ -14,11 +14,11 @@ public enum Direction {
     this.rightDirection = rightDirection;
   }
 
-  public char getLeftDirection() {
-    return leftDirection;
+  public Direction getLeftDirection() {
+    return Direction.valueOf(String.valueOf(leftDirection));
   }
 
-  public char getRightDirection() {
-    return rightDirection;
+  public Direction getRightDirection() {
+    return Direction.valueOf(String.valueOf(rightDirection));
   }
 }

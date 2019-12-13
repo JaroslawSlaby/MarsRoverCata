@@ -11,10 +11,10 @@ public interface Command {
 class MoveCommand implements Command {
 
   private Map<Direction, MoveCommandInterface> moves = new HashMap<Direction, MoveCommandInterface>() {{
-    put(Direction.N, new MoveNorth());
-    put(Direction.S, new MoveSouth());
-    put(Direction.E, new MoveEast());
-    put(Direction.W, new MoveWest());
+    put(Direction.N, Rover::moveNorth);
+    put(Direction.S, Rover::moveSouth);
+    put(Direction.E, Rover::moveEast);
+    put(Direction.W, Rover::moveWest);
   }};
 
   @Override
@@ -28,10 +28,7 @@ class RotateLeftCommand implements Command {
 
   @Override
   public void execute(Rover rover) {
-    Direction currentDirection = rover.direction;
-    Direction direction = Direction.valueOf(String.valueOf(currentDirection));
-    char leftDirection = direction.getLeftDirection();
-    rover.direction = Direction.valueOf(String.valueOf(leftDirection));
+    rover.direction = rover.direction.getLeftDirection();
   }
 }
 
@@ -39,9 +36,6 @@ class RotateRightCommand implements Command {
 
   @Override
   public void execute(Rover rover) {
-    Direction currentDirection = rover.direction;
-    Direction direction = Direction.valueOf(String.valueOf(currentDirection));
-    char rightDirection = direction.getRightDirection();
-    rover.direction = Direction.valueOf(String.valueOf(rightDirection));
+    rover.direction = rover.direction.getRightDirection();
   }
 }
