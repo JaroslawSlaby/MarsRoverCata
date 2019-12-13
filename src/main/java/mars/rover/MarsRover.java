@@ -1,42 +1,25 @@
 package mars.rover;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MarsRover {
 
-    public static String move(int x, int y, char direction, String instructions) {
-        if (!instructions.isEmpty()) {
-            char instruction = instructions.charAt(0);
-            if (instruction == 'L') {
-                if (direction == 'N') {
-                    return move(x, y, 'W', instructions.substring(1, instructions.length()));
-                } else if (direction == 'W') {
-                    return move(x, y, 'S', instructions.substring(1, instructions.length()));
-                } else if (direction == 'S') {
-                    return move(x, y, 'E', instructions.substring(1, instructions.length()));
-                } else if (direction == 'E') {
-                    return move(x, y, 'N', instructions.substring(1, instructions.length()));
-                }
-            } else if (instruction == 'R') {
-                if (direction == 'N') {
-                    return move(x, y, 'E', instructions.substring(1, instructions.length()));
-                } else if (direction == 'W') {
-                    return move(x, y, 'N', instructions.substring(1, instructions.length()));
-                } else if (direction == 'S') {
-                    return move(x, y, 'W', instructions.substring(1, instructions.length()));
-                } else if (direction == 'E') {
-                    return move(x, y, 'S', instructions.substring(1, instructions.length()));
-                }
-            } else if (instruction == 'M') {
-                if (direction == 'N') {
-                    return move(x, y + 1, 'N', instructions.substring(1, instructions.length()));
-                } else if (direction == 'S') {
-                    return move(x, y - 1, 'S', instructions.substring(1, instructions.length()));
-                } else if (direction == 'W') {
-                    return move(x - 1, y, 'W', instructions.substring(1, instructions.length()));
-                } else if (direction == 'E') {
-                    return move(x + 1, y, 'E', instructions.substring(1, instructions.length()));
-                }
-            }
-        }
-        return x + " " + y + " " + direction;
+  private static Map<String, Command> commands = new HashMap<String, Command>() {{
+    put("M", new MoveCommand());
+    put("L", new RotateLeftCommand());
+    put("R", new RotateRightCommand());
+  }};
+
+  static String move(int x, int y, char direction, String instructions) {
+
+    Rover rover = new Rover(x, y, Direction.valueOf(String.valueOf(direction)));
+
+    for (char instruction : instructions.toCharArray()) {
+      commands.get(String.valueOf(instruction)).execute(rover);
     }
+
+    return rover.x + " " + rover.y + " " + rover.direction.toString();
+
+  }
 }
