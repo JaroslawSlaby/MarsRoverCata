@@ -23,19 +23,3 @@ class MoveCommand implements Command {
     moves.get(direction).move(rover);
   }
 }
-
-class RotateLeftCommand implements Command {
-
-  @Override
-  public void execute(Rover rover) {
-    rover.direction = rover.direction.getLeftDirection();
-  }
-}
-
-class RotateRightCommand implements Command {
-
-  @Override
-  public void execute(Rover rover) {
-    rover.direction = rover.direction.getRightDirection();
-  }
-}

@@ -27,4 +27,12 @@ public class Rover {
   void moveWest() {
     x--;
   }
+
+  void turnLeft() {
+    direction = direction.getLeftDirection();
+  }
+
+  void turnRight() {
+   direction = direction.getRightDirection();
+  }
 }

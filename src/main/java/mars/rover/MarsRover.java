@@ -7,8 +7,8 @@ public class MarsRover {
 
   private static Map<String, Command> commands = new HashMap<String, Command>() {{
     put("M", new MoveCommand());
-    put("L", new RotateLeftCommand());
-    put("R", new RotateRightCommand());
+    put("L", Rover::turnLeft);
+    put("R", Rover::turnRight);
   }};
 
   static String move(int x, int y, char direction, String instructions) {
