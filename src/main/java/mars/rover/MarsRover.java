@@ -5,11 +5,22 @@ import java.util.Map;
 
 public class MarsRover {
 
-  private static Map<String, Command> commands = new HashMap<String, Command>() {{
-    put("M", new MoveCommand());
-    put("L", new RotateLeftCommand());
-    put("R", new RotateRightCommand());
+  private static Map<Direction, MoveCommandInterface> moves = new HashMap<Direction, MoveCommandInterface>() {{
+    put(Direction.N, Rover::moveNorth);
+    put(Direction.S, Rover::moveSouth);
+    put(Direction.E, Rover::moveEast);
+    put(Direction.W, Rover::moveWest);
   }};
+
+  private static Map<String, Command> commands = new HashMap<String, Command>() {{
+    put("M", MarsRover::moveRover);
+    put("L", Rover::turnLeft);
+    put("R", Rover::turnRight);
+  }};
+
+  private static void moveRover(Rover rover) {
+    moves.get(rover.direction).move(rover);
+  }
 
   static String move(int x, int y, char direction, String instructions) {
 
