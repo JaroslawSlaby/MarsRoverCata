@@ -6,14 +6,14 @@ import java.util.Map;
 public class MarsRover {
 
   private static Map<String, Command> commands = new HashMap<String, Command>() {{
-    put("M", new MoveCommand());
+    put("M", Rover::move);
     put("L", Rover::turnLeft);
     put("R", Rover::turnRight);
   }};
 
   static String move(int x, int y, char direction, String instructions) {
 
-    Rover rover = new Rover(x, y, Direction.valueOf(String.valueOf(direction)));
+    Rover rover = Rover.createRover(x, y, Direction.valueOf(String.valueOf(direction)));
 
     for (char instruction : instructions.toCharArray()) {
       commands.get(String.valueOf(instruction)).execute(rover);
